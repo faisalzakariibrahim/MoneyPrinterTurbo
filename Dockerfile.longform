@@ -1,0 +1,31 @@
+# Long-form studio worker (no inbound ports: it pulls jobs from Supabase).
+#   docker build -f Dockerfile.longform -t ulf-worker .
+#   docker run --env-file .env.worker -v ulf-data:/data ulf-worker
+# For NVENC rendering build from an NVIDIA CUDA base and set LF_VIDEO_CODEC=h264_nvenc.
+FROM python:3.11-slim-bookworm
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app \
+    LF_WORK_DIR=/data \
+    UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ffmpeg fonts-inter fontconfig ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY --from=ghcr.io/astral-sh/uv:0.9 /uv /usr/local/bin/uv
+
+WORKDIR /app
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
+
+COPY app ./app
+COPY resource/fonts/longform ./resource/fonts/longform
+
+# Run as an unprivileged user; /data holds caches and in-progress renders.
+RUN useradd --create-home --uid 10001 worker && mkdir -p /data && chown worker /data
+USER worker
+VOLUME ["/data"]
+
+CMD ["/app/.venv/bin/python", "-m", "app.longform.worker"]
