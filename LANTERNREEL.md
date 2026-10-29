@@ -1,4 +1,4 @@
-# Longform Studio
+# Lanternreel
 
 Ultra-long-form (1–5 hour) narrated YouTube video studio, built on this MoneyPrinterTurbo fork.
 
@@ -32,7 +32,7 @@ resume from finished chunks.
 2. **Storage**: the migration creates the private `longform` bucket. Raise its file size limit
    (Storage → Settings) to fit multi-GB renders, and create S3 access keys for the worker.
 3. **Worker**: copy `.env.worker.example` → `.env.worker`, then
-   `docker build -f Dockerfile.longform -t ulf-worker . && docker run --env-file .env.worker -v ulf:/data ulf-worker`.
+   `docker build -f Dockerfile.longform -t lanternreel-worker . && docker run --env-file .env.worker -v lanternreel:/data lanternreel-worker`.
    Production layout: one light worker (`LF_WORKER_TYPES=train_niche,script,publish`, `LF_WORKER_CONCURRENCY=6`)
    and render workers on big CPU boxes or NVENC GPUs (`LF_VIDEO_CODEC=h264_nvenc`).
 4. **Web**: `cd web && cp .env.example .env.local && npm i && npm run dev`. Deploy to Vercel.

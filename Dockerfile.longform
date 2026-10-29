@@ -1,6 +1,6 @@
-# Long-form studio worker (no inbound ports: it pulls jobs from Supabase).
-#   docker build -f Dockerfile.longform -t ulf-worker .
-#   docker run --env-file .env.worker -v ulf-data:/data ulf-worker
+# Lanternreel worker (no inbound ports: it pulls jobs from Supabase).
+#   docker build -f Dockerfile.longform -t lanternreel-worker .
+#   docker run --env-file .env.worker -v lanternreel-data:/data lanternreel-worker
 # For NVENC rendering build from an NVIDIA CUDA base and set LF_VIDEO_CODEC=h264_nvenc.
 FROM python:3.11-slim-bookworm
 

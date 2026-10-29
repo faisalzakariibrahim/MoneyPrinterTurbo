@@ -44,4 +44,4 @@ export function rpcError(e: { message?: string } | null | undefined): string {
   return msg.replace(/^plan_limit:\s*/, "").replace(/^./, (c) => c.toUpperCase());
 }
 
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Longform Studio";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Lanternreel";
