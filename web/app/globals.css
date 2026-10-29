@@ -1,0 +1,34 @@
+@import "@fontsource/barlow-condensed/500.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html { background: #191C34; }
+body {
+  @apply bg-night text-paper font-sans antialiased;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+h1, h2, h3 { @apply font-display tracking-tight; font-weight: 600; }
+
+:focus-visible { outline: 2px solid #F2B544; outline-offset: 2px; border-radius: 4px; }
+
+::selection { background: #F2B54455; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@keyframes fillin { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.track-seg { transform-origin: left; animation: fillin 700ms cubic-bezier(.2,.7,.2,1) both; }
